@@ -6,18 +6,18 @@ import pandas as pd  # For data manipulation
 from flask import Flask, request, jsonify  # For creating the Flask API
 
 # Initialize Flask app with a name
-app = Flask("SuperKart")
+superkart_api = Flask("SuperKart")
 
 # Load the trained model
 model = joblib.load("superkart_model.joblib")
 
 # Define a route for the home page
-@app.get('/')
+@superkart_api.get('/')
 def home():
     return "Welcome to the SuperKart System"
 
 # Define an endpoint to predict sales for a single product
-@app.post('/v1/predict')
+@superkart_api.post('/v1/predict')
 def predict_sales():
     # Get JSON data from the request
     data = request.get_json()
@@ -46,7 +46,7 @@ def predict_sales():
     return jsonify({'Sales': prediction})
 
 # Define an endpoint to predict sales for a batch of products
-@app.post('/v1/predictbatch')
+@superkart_api.post('/v1/predictbatch')
 def predict_sales_batch():
     # Get the uploaded CSV file from the request
     file = request.files['file']
